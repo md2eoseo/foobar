@@ -38,8 +38,8 @@ function App() {
         // update state here
         const added = [];
 
-        // get new order from Queue data
-        data.queue.forEach((new_order) => {
+        // get new order from Serving data
+        data.serving.forEach((new_order) => {
           let i = 0;
           for (i = 0; i < orders.length; i++) {
             if (new_order.id === orders[i].id) break;
@@ -57,8 +57,8 @@ function App() {
           }
         });
 
-        // get new order from Serving data
-        data.serving.forEach((new_order) => {
+        // get new order from Queue data
+        data.queue.forEach((new_order) => {
           let i = 0;
           for (i = 0; i < orders.length; i++) {
             if (new_order.id === orders[i].id) break;
@@ -82,13 +82,15 @@ function App() {
         console.log(`sales ==> ${JSON.stringify(sales)}`);
         console.log(`orders ==> ${JSON.stringify(orders)}`);
         console.log(
-          `fetched following data -> ${JSON.stringify(data.serving)}`
+          `fetched following data -> ${JSON.stringify(
+            data.serving.concat(data.queue)
+          )}`
         );
       });
   }
 
   function calculatePodium() {
-    let new_podium = podium;
+    const new_podium = { ...podium };
     for (let [beer, value] of Object.entries(sales)) {
       if (sales[beer] > podium.first_num) {
         new_podium.third = new_podium.second;
@@ -112,7 +114,7 @@ function App() {
 
   return (
     <div className="App">
-      <button onClick={() => setCheck(!check)}>{check}</button>
+      <button onClick={() => setCheck(!check)}>{check ? "on" : "off"}</button>
       <Welcome />
       <div className="beers">
         <Podium {...podium} />
