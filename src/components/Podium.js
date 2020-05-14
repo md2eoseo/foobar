@@ -12,9 +12,9 @@ export default function Podium({ ...podium }) {
 
   return (
     <div className="Podium" style={Podium_style}>
-      <PodiumItem number="2" num="second" beer={podium.second} />
-      <PodiumItem number="1" num="first" beer={podium.first} />
-      <PodiumItem number="3" num="third" beer={podium.third} />
+      <PodiumItem number="2" beer={podium.second} beerNum={podium.second_num} />
+      <PodiumItem number="1" beer={podium.first} beerNum={podium.first_num} />
+      <PodiumItem number="3" beer={podium.third} beerNum={podium.third_num} />
     </div>
   );
 }

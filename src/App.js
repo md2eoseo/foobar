@@ -1,9 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
 import Welcome from "./components/Welcome";
 import Podium from "./components/Podium";
 
 const DB_URL = "https://neonapp.herokuapp.com/";
+
+// https://overreacted.io/making-setinterval-declarative-with-react-hooks/
+function useInterval(callback, delay) {
+  const savedCallback = useRef();
+
+  // Remember the latest callback.
+  useEffect(() => {
+    savedCallback.current = callback;
+  }, [callback]);
+
+  // Set up the interval.
+  useEffect(() => {
+    function tick() {
+      savedCallback.current();
+    }
+    if (delay !== null) {
+      let id = setInterval(tick, delay);
+      return () => clearInterval(id);
+    }
+  }, [delay]);
+}
 
 function App() {
   const [check, setCheck] = useState(false);
@@ -18,7 +39,8 @@ function App() {
     third_num: 0,
   });
 
-  useEffect(() => get(), []);
+  // useEffect(get, []);
+  useInterval(get, 5000);
 
   function get() {
     fetch(DB_URL, {
@@ -36,23 +58,23 @@ function App() {
       })
       .then((data) => {
         // update state here
-        const added = [];
+        const new_orders = [...orders];
+        const new_sales = { ...sales };
 
         // get new order from Serving data
         data.serving.forEach((new_order) => {
           let i = 0;
-          for (i = 0; i < orders.length; i++) {
-            if (new_order.id === orders[i].id) break;
+          for (i = 0; i < new_orders.length; i++) {
+            if (new_order.id === new_orders[i].id) break;
           }
-          if (i === orders.length) {
-            added.push(new_order);
+          if (i === new_orders.length) {
+            new_orders.push(new_order);
             new_order.order.forEach((beer) => {
-              if (sales[beer]) {
-                sales[beer] += 1;
+              if (new_sales[beer]) {
+                new_sales[beer] += 1;
               } else {
-                sales[beer] = 1;
+                new_sales[beer] = 1;
               }
-              setSales(sales);
             });
           }
         });
@@ -60,54 +82,59 @@ function App() {
         // get new order from Queue data
         data.queue.forEach((new_order) => {
           let i = 0;
-          for (i = 0; i < orders.length; i++) {
-            if (new_order.id === orders[i].id) break;
+          for (i = 0; i < new_orders.length; i++) {
+            if (new_order.id === new_orders[i].id) break;
           }
-          if (i === orders.length) {
-            added.push(new_order);
+          if (i === new_orders.length) {
+            new_orders.push(new_order);
             new_order.order.forEach((beer) => {
-              if (sales[beer]) {
-                sales[beer] += 1;
+              if (new_sales[beer]) {
+                new_sales[beer] += 1;
               } else {
-                sales[beer] = 1;
+                new_sales[beer] = 1;
               }
-              setSales(sales);
             });
           }
         });
 
-        setOrders(orders.concat(added));
+        setSales(new_sales);
+        setOrders(new_orders);
         calculatePodium();
-        console.log(`podium ==> ${JSON.stringify(podium)}`);
-        console.log(`sales ==> ${JSON.stringify(sales)}`);
-        console.log(`orders ==> ${JSON.stringify(orders)}`);
-        console.log(
-          `fetched following data -> ${JSON.stringify(
-            data.serving.concat(data.queue)
-          )}`
-        );
+        // console.log(`podium ==> ${JSON.stringify(podium)}`);
+        // console.log(`sales ==> ${JSON.stringify(sales)}`);
+        // console.log(`orders ==> ${JSON.stringify(orders)}`);
+        // console.log(
+        //   `fetched following data -> ${JSON.stringify(
+        //     data.serving.concat(data.queue)
+        //   )}`
+        // );
       });
   }
 
   function calculatePodium() {
-    const new_podium = { ...podium };
-    for (let [beer, value] of Object.entries(sales)) {
-      if (sales[beer] > podium.first_num) {
-        new_podium.third = new_podium.second;
-        new_podium.third_num = new_podium.second_num;
-        new_podium.second = new_podium.first;
-        new_podium.second_num = new_podium.first_num;
-        new_podium.first = beer;
-        new_podium.first_num = sales[beer];
-      } else if (sales[beer] > podium.second_num) {
-        new_podium.third = new_podium.second;
-        new_podium.third_num = new_podium.second_num;
-        new_podium.second = beer;
-        new_podium.second_num = sales[beer];
-      } else if (sales[beer] > podium.third_num) {
-        new_podium.third = beer;
-        new_podium.third_num = sales[beer];
+    const new_podium = {};
+    let max = 0;
+    let min = 9999;
+    for (let cnt = 0; cnt < 3; cnt++) {
+      for (let [beer, beerNum] of Object.entries(sales)) {
+        if (max < beerNum && beerNum <= min) {
+          if (new_podium.first !== beer && new_podium.second !== beer) {
+            max = beerNum;
+            if (cnt === 0) {
+              new_podium.first = beer;
+              new_podium.first_num = beerNum;
+            } else if (cnt === 1 && new_podium.first !== beer) {
+              new_podium.second = beer;
+              new_podium.second_num = beerNum;
+            } else if (cnt === 2 && new_podium.second !== beer) {
+              new_podium.third = beer;
+              new_podium.third_num = beerNum;
+            }
+          }
+        }
       }
+      min = max;
+      max = 0;
     }
     setPodium(new_podium);
   }

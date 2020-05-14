@@ -22,6 +22,7 @@ export default function PodiumItem(props) {
       <div>
         {props.number}
         {props.beer}
+        {props.beerNum}
       </div>
     </div>
   );
