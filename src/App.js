@@ -2,8 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
 import Welcome from "./components/Welcome";
 import Podium from "./components/Podium";
+import Recommendation from "./components/Recommendation";
 
-const DB_URL = "https://neonapp.herokuapp.com/";
+const DB_URL = "https://sojuapp.herokuapp.com/";
 
 // https://overreacted.io/making-setinterval-declarative-with-react-hooks/
 function useInterval(callback, delay) {
@@ -38,8 +39,8 @@ function App() {
     second_num: 0,
     third_num: 0,
   });
+  const [rec, setRec] = useState("default");
 
-  // useEffect(get, []);
   useInterval(get, 5000);
 
   function get() {
@@ -58,60 +59,73 @@ function App() {
       })
       .then((data) => {
         // update state here
-        const new_orders = [...orders];
-        const new_sales = { ...sales };
-
-        // get new order from Serving data
-        data.serving.forEach((new_order) => {
-          let i = 0;
-          for (i = 0; i < new_orders.length; i++) {
-            if (new_order.id === new_orders[i].id) break;
-          }
-          if (i === new_orders.length) {
-            new_orders.push(new_order);
-            new_order.order.forEach((beer) => {
-              if (new_sales[beer]) {
-                new_sales[beer] += 1;
-              } else {
-                new_sales[beer] = 1;
-              }
-            });
-          }
-        });
-
-        // get new order from Queue data
-        data.queue.forEach((new_order) => {
-          let i = 0;
-          for (i = 0; i < new_orders.length; i++) {
-            if (new_order.id === new_orders[i].id) break;
-          }
-          if (i === new_orders.length) {
-            new_orders.push(new_order);
-            new_order.order.forEach((beer) => {
-              if (new_sales[beer]) {
-                new_sales[beer] += 1;
-              } else {
-                new_sales[beer] = 1;
-              }
-            });
-          }
-        });
-
-        setSales(new_sales);
-        setOrders(new_orders);
-        calculatePodium();
-        // console.log(`podium ==> ${JSON.stringify(podium)}`);
-        // console.log(`sales ==> ${JSON.stringify(sales)}`);
-        // console.log(`orders ==> ${JSON.stringify(orders)}`);
-        // console.log(
-        //   `fetched following data -> ${JSON.stringify(
-        //     data.serving.concat(data.queue)
-        //   )}`
-        // );
+        setSalesAndOrders(data);
+        getRecommendation(data);
+        return sales;
+      })
+      .then((sales) => {
+        calculatePodium(sales);
       });
   }
 
-  function calculatePodium() {
+  function getRecommendation(data) {
+    let min_level = 2500;
+    let min_beer = "";
+    data.taps.forEach((tap) => {
+      if (tap.level < min_level && tap.level !== 0) {
+        min_level = tap.level;
+        min_beer = tap.beer;
+      }
+    });
+    setRec(min_beer);
+    console.log(min_level, min_beer);
+  }
+
+  function setSalesAndOrders(data) {
+    const new_orders = [...orders];
+    const new_sales = { ...sales };
+
+    // get new order from Serving data
+    data.serving.forEach((new_order) => {
+      let i = 0;
+      for (i = 0; i < new_orders.length; i++) {
+        if (new_order.id === new_orders[i].id) break;
+      }
+      if (i === new_orders.length) {
+        new_orders.push(new_order);
+        new_order.order.forEach((beer) => {
+          if (new_sales[beer]) {
+            new_sales[beer] += 1;
+          } else {
+            new_sales[beer] = 1;
+          }
+        });
+      }
+    });
+
+    // get new order from Queue data
+    data.queue.forEach((new_order) => {
+      let i = 0;
+      for (i = 0; i < new_orders.length; i++) {
+        if (new_order.id === new_orders[i].id) break;
+      }
+      if (i === new_orders.length) {
+        new_orders.push(new_order);
+        new_order.order.forEach((beer) => {
+          if (new_sales[beer]) {
+            new_sales[beer] += 1;
+          } else {
+            new_sales[beer] = 1;
+          }
+        });
+      }
+    });
+
+    setSales(new_sales);
+    setOrders(new_orders);
+  }
+
+  function calculatePodium(sales) {
     const new_podium = {};
     let max = 0;
     let min = 9999;
@@ -139,12 +153,24 @@ function App() {
     setPodium(new_podium);
   }
 
+  const beers_style = {
+    display: "flex",
+    justifyContent: "space-around",
+  };
+
   return (
     <div className="App">
       <button onClick={() => setCheck(!check)}>{check ? "on" : "off"}</button>
       <Welcome />
-      <div className="beers">
+      <div className="beers" style={beers_style}>
         <Podium {...podium} />
+        <Recommendation
+          rec={rec}
+          rec_img={`../images/beers/${rec
+            .split(" ")
+            .join("")
+            .toLowerCase()}.png`}
+        />
       </div>
     </div>
   );
