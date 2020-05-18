@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./App.css";
+import useInterval from "./hooks/useInterval";
 import Welcome from "./components/Welcome";
 import Podium from "./components/Podium";
 import Recommendation from "./components/Recommendation";
@@ -8,25 +9,6 @@ import Queue from "./components/Queue";
 const DB_URL = "https://sojuapp.herokuapp.com/";
 // https://stackoverflow.com/questions/54059179/what-is-require-context
 const images = require.context("./images/", true);
-
-// https://overreacted.io/making-setinterval-declarative-with-react-hooks/
-function useInterval(callback, delay) {
-  const savedCallback = useRef();
-  // Remember the latest callback.
-  useEffect(() => {
-    savedCallback.current = callback;
-  }, [callback]);
-  // Set up the interval.
-  useEffect(() => {
-    function tick() {
-      savedCallback.current();
-    }
-    if (delay !== null) {
-      let id = setInterval(tick, delay);
-      return () => clearInterval(id);
-    }
-  }, [delay]);
-}
 
 function App() {
   // const [check, setCheck] = useState(false);
@@ -154,7 +136,7 @@ function App() {
   }
 
   const beers_style = {
-    margin: "1rem",
+    marginTop: "6%",
     display: "flex",
     justifyContent: "space-around",
   };
@@ -165,6 +147,7 @@ function App() {
       <Welcome />
       <div className="beers" style={beers_style}>
         <Podium {...podium} />
+        {/* <Carousel/> */}
         <Recommendation
           rec={rec}
           rec_img={images(

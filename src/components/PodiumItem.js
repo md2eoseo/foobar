@@ -89,7 +89,6 @@ export default function PodiumItem(props) {
         }}
       >
         {props.beer}
-        {/* {props.beerNum} */}
       </div>
     </div>
   );

@@ -17,9 +17,17 @@ export default function Recommendation(props) {
 
   return (
     <div className="Recommendation" style={Recommendation_style}>
-      <h2>Recommend for Now!!</h2>
+      <h1>Recommend for Now!!</h1>
       <img src={props.rec_img} alt="rec_img" style={beer_img} />
-      <div>{props.rec}</div>
+      <div
+        style={{
+          maxHeight: "1rem",
+          overflow: "visible",
+          fontSize: "1.5rem",
+        }}
+      >
+        {props.rec}
+      </div>
     </div>
   );
 }

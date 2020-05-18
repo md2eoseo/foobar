@@ -16,7 +16,7 @@ export default function Podium({ ...podium }) {
 
   return (
     <div className="Podium" style={Podium_style}>
-      <h2>Top 3 Beers</h2>
+      <h1>Top 3 Beers</h1>
       <div className="podium_items" style={items_style}>
         <PodiumItem
           number="2"

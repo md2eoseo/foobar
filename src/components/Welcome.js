@@ -1,42 +1,34 @@
 import React from "react";
-import welcome_img from "../images/beers/elhefe.png";
+import Clock from "./Clock";
+import logo from "../images/logo.JPG";
 
 export default function Welcome() {
   const Welcome_style = {
-    width: "85%",
-    margin: "2rem auto",
+    position: "fixed",
+    top: "0",
+    width: "100%",
+    maxHeight: "7%",
     padding: "5px 10px",
     display: "flex",
-    justifyContent: "space-between",
-    border: "3px solid black",
-    borderRadius: "20px",
+    justifyContent: "space-evenly",
+    borderBottom: "2px solid black",
   };
 
   const greeting_text_style = {
-    margin: "5px 10px",
     fontSize: "2rem",
   };
 
-  const desc_style = {
-    margin: "5px 10px",
-    fontSize: "1.5rem",
-  };
-
-  const welcome_img_style = {
-    width: "20%",
-    maxHeight: "200px",
-    borderRadius: "50%",
+  const logo_style = {
+    width: "10%",
   };
 
   return (
     <div className="Welcome" style={Welcome_style}>
+      <img src={logo} alt="logo" style={logo_style} />
       <div className="greeting_text" style={greeting_text_style}>
-        <div className="title">Welcome to Foo Bar!</div>
-        <div className="desc" style={desc_style}>
-          This is FooBar!
-        </div>
+        Welcome to Foo Bar!
       </div>
-      <img src={welcome_img} alt="welcome" style={welcome_img_style} />
+      <Clock />
     </div>
   );
 }
