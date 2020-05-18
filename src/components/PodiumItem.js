@@ -8,21 +8,26 @@ export default function PodiumItem(props) {
     padding: "5px 10px",
   };
 
-  const podium_beer_img_style = {
-    width: "90%",
-  };
+  let podium_beer_img_style = {};
+  if (props.number === "1") {
+    podium_beer_img_style = { ...podium_beer_img_style, width: "80%" };
+  } else if (props.number === "2") {
+    podium_beer_img_style = { ...podium_beer_img_style, width: "70%" };
+  } else if (props.number === "3") {
+    podium_beer_img_style = { ...podium_beer_img_style, width: "60%" };
+  }
 
   return (
     <div className="PodiumItem" style={PodiumItem_style}>
+      <div>{props.number}</div>
       <img
         src={podium_beer_img}
         alt="podium_beer"
         style={podium_beer_img_style}
       />
       <div>
-        {props.number}
         {props.beer}
-        {props.beerNum}
+        {/* {props.beerNum} */}
       </div>
     </div>
   );

@@ -29,7 +29,7 @@ function useInterval(callback, delay) {
 }
 
 function App() {
-  const [check, setCheck] = useState(false);
+  // const [check, setCheck] = useState(false);
   const [orders, setOrders] = useState([]);
   const [sales, setSales] = useState({});
   const [podium, setPodium] = useState({
@@ -41,6 +41,7 @@ function App() {
     third_num: 0,
   });
   const [rec, setRec] = useState("default");
+  const [queue, setQueue] = useState([]);
 
   useInterval(get, 5000);
 
@@ -60,12 +61,8 @@ function App() {
       })
       .then((data) => {
         // update state here
-        setSalesAndOrders(data);
+        setSalesOrdersPodium(data);
         getRecommendation(data);
-        return sales;
-      })
-      .then((sales) => {
-        calculatePodium(sales);
       });
   }
 
@@ -82,9 +79,12 @@ function App() {
     console.log(min_level, min_beer);
   }
 
-  function setSalesAndOrders(data) {
+  function setSalesOrdersPodium(data) {
     const new_orders = [...orders];
     const new_sales = { ...sales };
+    const new_podium = {};
+    const new_queue = [];
+
     // get new order from Serving data
     data.serving.forEach((new_order) => {
       let i = 0;
@@ -105,6 +105,8 @@ function App() {
 
     // get new order from Queue data
     data.queue.forEach((new_order) => {
+      new_queue.push(new_order);
+
       let i = 0;
       for (i = 0; i < new_orders.length; i++) {
         if (new_order.id === new_orders[i].id) break;
@@ -121,16 +123,10 @@ function App() {
       }
     });
 
-    setSales(new_sales);
-    setOrders(new_orders);
-  }
-
-  function calculatePodium(sales) {
-    const new_podium = {};
     let max = 0;
     let min = 9999;
     for (let cnt = 0; cnt < 3; cnt++) {
-      for (let [beer, beerNum] of Object.entries(sales)) {
+      for (let [beer, beerNum] of Object.entries(new_sales)) {
         if (max < beerNum && beerNum <= min) {
           if (new_podium.first !== beer && new_podium.second !== beer) {
             max = beerNum;
@@ -150,17 +146,22 @@ function App() {
       min = max;
       max = 0;
     }
+
+    setSales(new_sales);
+    setOrders(new_orders);
     setPodium(new_podium);
+    setQueue(new_queue);
   }
 
   const beers_style = {
+    margin: "1rem",
     display: "flex",
     justifyContent: "space-around",
   };
 
   return (
     <div className="App">
-      <button onClick={() => setCheck(!check)}>{check ? "on" : "off"}</button>
+      {/* <button onClick={() => setCheck(!check)}>{check ? "on" : "off"}</button> */}
       <Welcome />
       <div className="beers" style={beers_style}>
         <Podium {...podium} />
@@ -171,7 +172,7 @@ function App() {
           )}
         />
       </div>
-      <Queue />
+      <Queue queue={queue} />
     </div>
   );
 }

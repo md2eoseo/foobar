@@ -4,7 +4,7 @@ import welcome_img from "../images/beers/elhefe.png";
 export default function Welcome() {
   const Welcome_style = {
     width: "85%",
-    margin: "0 auto",
+    margin: "2rem auto",
     padding: "5px 10px",
     display: "flex",
     justifyContent: "space-between",
