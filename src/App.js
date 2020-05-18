@@ -33,9 +33,9 @@ function App() {
   const [orders, setOrders] = useState([]);
   const [sales, setSales] = useState({});
   const [podium, setPodium] = useState({
-    first: "Nothing",
-    second: "Nothing",
-    third: "Nothing",
+    first: "default",
+    second: "default",
+    third: "default",
     first_num: 0,
     second_num: 0,
     third_num: 0,
