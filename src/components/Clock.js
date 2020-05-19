@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import useInterval from "../hooks/useInterval";
 
 export default function Clock() {
@@ -11,7 +11,7 @@ export default function Clock() {
     const hours = date.getHours();
     const seconds = date.getSeconds();
 
-    if (seconds == 0 || initialTime) {
+    if (seconds === 0 || initialTime) {
       setTime(
         `${hours < 10 ? `0${hours}` : hours}${seconds % 2 === 0 ? ":" : " "}${
           minutes < 10 ? `0${minutes}` : minutes

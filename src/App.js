@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import useInterval from "./hooks/useInterval";
 import Welcome from "./components/Welcome";
 import Podium from "./components/Podium";
 import Recommendation from "./components/Recommendation";
 import Queue from "./components/Queue";
+import Showcase from "./components/Showcase";
 
 const DB_URL = "https://sojuapp.herokuapp.com/";
 // https://stackoverflow.com/questions/54059179/what-is-require-context
@@ -24,8 +25,27 @@ function App() {
   });
   const [rec, setRec] = useState("default");
   const [queue, setQueue] = useState([]);
+  const [beertypes, setBeertypes] = useState([]);
 
   useInterval(get, 5000);
+  useEffect(getBeertypes, []);
+
+  function getBeertypes() {
+    fetch(DB_URL + "beertypes", {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+      },
+    })
+      .then((res) => {
+        if (res.ok) return res.json();
+        else console.log("GET failed!");
+      })
+      .then((data) => {
+        // store the data of beers
+        setBeertypes(data);
+      });
+  }
 
   function get() {
     fetch(DB_URL, {
@@ -147,7 +167,7 @@ function App() {
       <Welcome />
       <div className="beers" style={beers_style}>
         <Podium {...podium} />
-        {/* <Carousel/> */}
+        <Showcase data={beertypes} />
         <Recommendation
           rec={rec}
           rec_img={images(
