@@ -49,16 +49,16 @@ function App() {
   }
 
   function getRecommendation(data) {
-    let min_level = 2500;
-    let min_beer = "";
-    data.taps.forEach((tap) => {
-      if (tap.level < min_level && tap.level !== 0) {
-        min_level = tap.level;
-        min_beer = tap.beer;
+    let max_amount = 0;
+    let max_beer = "";
+    data.storage.forEach((beer) => {
+      if (beer.amount > max_amount) {
+        max_amount = beer.amount;
+        max_beer = beer.name;
       }
     });
-    setRec(min_beer);
-    console.log(min_level, min_beer);
+    setRec(max_beer);
+    console.log(max_amount, max_beer);
   }
 
   function setSalesOrdersPodium(data) {
