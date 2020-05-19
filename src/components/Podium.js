@@ -3,7 +3,7 @@ import PodiumItem from "./PodiumItem";
 
 export default function Podium({ ...podium }) {
   const Podium_style = {
-    width: "35%",
+    width: "30%",
     margin: "0 auto",
     padding: "5px 10px",
     textAlign: "center",
@@ -11,7 +11,7 @@ export default function Podium({ ...podium }) {
 
   const items_style = {
     display: "flex",
-    justifyContent: "space-between",
+    justifyContent: "",
   };
 
   return (

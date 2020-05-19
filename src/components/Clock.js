@@ -24,7 +24,10 @@ export default function Clock() {
   useInterval(getTime, 1000);
 
   return (
-    <div className="Clock" style={{ fontSize: "2rem", fontWeight: "600" }}>
+    <div
+      className="Clock"
+      style={{ marginRight: "15px", fontSize: "2rem", fontWeight: "600" }}
+    >
       {time}
     </div>
   );

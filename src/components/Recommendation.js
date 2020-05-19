@@ -2,12 +2,12 @@ import React from "react";
 
 export default function Recommendation(props) {
   const Recommendation_style = {
-    width: "35%",
+    width: "30%",
     margin: "0 auto",
     padding: "5px 10px",
     display: "flex",
     flexDirection: "column",
-    justifyContent: "space-between",
+    justifyContent: "",
     alignItems: "center",
   };
 

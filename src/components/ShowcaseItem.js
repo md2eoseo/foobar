@@ -2,16 +2,20 @@ import React from "react";
 const images = require.context("../images/", true);
 
 export default function ShowcaseItem(props) {
-  const name_style = {};
-  const img_style = {
-    width: "30%",
+  const ShowcaseItem_style = {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   };
-  const price_style = {};
-  const desc_style = {};
+  const img_style = {
+    maxHeight: "200px",
+  };
+  const name_style = { margin: "0" };
+  const price_style = { margin: "0" };
+  const desc_style = { maxWidth: "80%" };
 
   return (
-    <>
-      <h1 style={name_style}>{props.name}</h1>
+    <div style={ShowcaseItem_style}>
       {/* every react state starts from 'undefined' when it renders, so we cannot use functions and inner properties after state */}
       {/* https://react-cn.github.io/react/tips/if-else-in-JSX.html */}
       {props.name !== undefined ? (
@@ -25,12 +29,13 @@ export default function ShowcaseItem(props) {
       ) : (
         ""
       )}
-      <h2>39,00kr</h2>
+      <h1 style={name_style}>{props.name}</h1>
+      <h2 style={price_style}>39,00kr</h2>
       {props.description !== undefined ? (
-        <p>{props.description.overallImpression}</p>
+        <p style={desc_style}>{props.description.overallImpression}</p>
       ) : (
         ""
       )}
-    </>
+    </div>
   );
 }

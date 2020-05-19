@@ -1,25 +1,27 @@
 import React from "react";
 import Clock from "./Clock";
-import logo from "../images/logo.JPG";
+import logo from "../images/logo.svg";
 
 export default function Welcome() {
   const Welcome_style = {
     position: "fixed",
     top: "0",
     width: "100%",
-    maxHeight: "7%",
-    padding: "5px 10px",
+    maxHeight: "8%",
     display: "flex",
-    justifyContent: "space-evenly",
+    justifyContent: "space-between",
+    alignItems: "center",
     borderBottom: "2px solid black",
+    backgroundColor: "#ffbc3f",
+  };
+
+  const logo_style = {
+    marginLeft: "30px",
+    height: "5.5vh",
   };
 
   const greeting_text_style = {
     fontSize: "2rem",
-  };
-
-  const logo_style = {
-    width: "10%",
   };
 
   return (

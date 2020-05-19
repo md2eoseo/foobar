@@ -1,0 +1,8 @@
+.Showcase {
+  opacity: 0;
+  transition: 1s;
+}
+
+.showup {
+  opacity: 1;
+}
