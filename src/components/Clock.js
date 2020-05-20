@@ -26,7 +26,12 @@ export default function Clock() {
   return (
     <div
       className="Clock"
-      style={{ marginRight: "15px", fontSize: "2rem", fontWeight: "600" }}
+      style={{
+        width: "80px",
+        marginRight: "15px",
+        fontSize: "2rem",
+        fontWeight: "600",
+      }}
     >
       {time}
     </div>

@@ -7,17 +7,19 @@ export default function Showcase(props) {
   const [idx, setIdx] = useState(0);
   const itemRef = useRef();
 
-  useInterval(changeIdx, 2000);
+  useInterval(changeIdx, 10000);
   useEffect(showup, [idx]);
 
   function showup() {
     itemRef.current.classList.add("showup");
+    // setTimeout in React
     // https://upmostly.com/tutorials/settimeout-in-react-components-using-hooks
     const timer = setTimeout(() => {
       itemRef.current.classList.remove("showup");
-    }, 1000);
+    }, 8900);
     return () => clearTimeout(timer);
   }
+
   function changeIdx() {
     setIdx((idx + 1) % BEERS_NUM);
   }

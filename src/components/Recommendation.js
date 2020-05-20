@@ -17,7 +17,7 @@ export default function Recommendation(props) {
 
   return (
     <div className="Recommendation" style={Recommendation_style}>
-      <h1>Recommend for Now!!</h1>
+      <h1>Today's Offer</h1>
       <img src={props.rec_img} alt="rec_img" style={beer_img} />
       <div
         style={{

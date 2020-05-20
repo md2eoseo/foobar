@@ -13,6 +13,8 @@ const images = require.context("./images/", true);
 
 function App() {
   // const [check, setCheck] = useState(false);
+  const [beertypes, setBeertypes] = useState([]);
+  const [rec, setRec] = useState("default");
   const [orders, setOrders] = useState([]);
   const [sales, setSales] = useState({});
   const [podium, setPodium] = useState({
@@ -23,12 +25,41 @@ function App() {
     second_num: 0,
     third_num: 0,
   });
-  const [rec, setRec] = useState("default");
   const [queue, setQueue] = useState([]);
-  const [beertypes, setBeertypes] = useState([]);
+  const [prevQueue, setPrevQueue] = useState([]);
 
   useInterval(get, 5000);
   useEffect(getBeertypes, []);
+  useEffect(compare, [queue]);
+
+  function compare() {
+    const copy_queue = [...queue];
+    const copy_prevQueue = [...prevQueue];
+    const gone = [];
+    const added = [];
+    let i = 0;
+    let j = 0;
+
+    // find which order went to serving data
+    for (i = 0; i < copy_prevQueue.length; i++) {
+      for (j = 0; j < copy_queue.length; j++) {
+        if (JSON.stringify(copy_prevQueue[i]) === JSON.stringify(copy_queue[j]))
+          break;
+      }
+      if (j === copy_queue.length) gone.push(copy_prevQueue[i]);
+    }
+
+    // find which order added into queue
+    for (i = 0; i < copy_queue.length; i++) {
+      for (j = 0; j < copy_prevQueue.length; j++) {
+        if (JSON.stringify(copy_queue[i]) === JSON.stringify(copy_prevQueue[j]))
+          break;
+      }
+      if (j === copy_prevQueue.length) added.push(copy_queue[i]);
+    }
+
+    setPrevQueue(copy_queue);
+  }
 
   function getBeertypes() {
     fetch(DB_URL + "beertypes", {
@@ -78,13 +109,13 @@ function App() {
       }
     });
     setRec(max_beer);
-    console.log(max_amount, max_beer);
   }
 
   function setSalesOrdersPodium(data) {
     const new_orders = [...orders];
     const new_sales = { ...sales };
     const new_podium = {};
+    const old_queue = [...prevQueue];
     const new_queue = [];
 
     // get new order from Serving data
@@ -152,7 +183,11 @@ function App() {
     setSales(new_sales);
     setOrders(new_orders);
     setPodium(new_podium);
-    setQueue(new_queue);
+    // https://www.samanthaming.com/tidbits/33-how-to-compare-2-objects/
+    if (JSON.stringify(old_queue) !== JSON.stringify(new_queue)) {
+      console.log("changed!!");
+      setQueue(new_queue);
+    }
   }
 
   const beers_style = {
