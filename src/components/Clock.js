@@ -27,7 +27,7 @@ export default function Clock() {
     <div
       className="Clock"
       style={{
-        width: "80px",
+        width: "85px",
         marginRight: "15px",
         fontSize: "2rem",
         fontWeight: "600",

@@ -24,11 +24,11 @@ export default function Showcase(props) {
     setIdx((idx + 1) % BEERS_NUM);
   }
 
-  const Showcase_style = { width: "30%" };
+  const Showcase_style = {};
 
   return (
-    <div className="Showcase" ref={itemRef} style={Showcase_style}>
-      <ShowcaseItem {...props.data[idx]} />
+    <div className="Showcase" style={Showcase_style}>
+      <ShowcaseItem ref={itemRef} {...props.data[idx]} />
     </div>
   );
 }

@@ -3,15 +3,13 @@ import PodiumItem from "./PodiumItem";
 
 export default function Podium({ ...podium }) {
   const Podium_style = {
-    width: "30%",
-    margin: "0 auto",
-    padding: "5px 10px",
     textAlign: "center",
   };
 
   const items_style = {
+    marginTop: "40px",
     display: "flex",
-    justifyContent: "",
+    justifyContent: "space-around",
   };
 
   return (

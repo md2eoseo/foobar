@@ -114,7 +114,14 @@ function App() {
   function setSalesOrdersPodium(data) {
     const new_orders = [...orders];
     const new_sales = { ...sales };
-    const new_podium = {};
+    const new_podium = {
+      first: "default",
+      second: "default",
+      third: "default",
+      first_num: 0,
+      second_num: 0,
+      third_num: 0,
+    };
     const old_queue = [...prevQueue];
     const new_queue = [];
 
@@ -156,6 +163,7 @@ function App() {
       }
     });
 
+    // set Podium with stored data(sales)
     let max = 0;
     let min = 9999;
     for (let cnt = 0; cnt < 3; cnt++) {
@@ -191,7 +199,7 @@ function App() {
   }
 
   const beers_style = {
-    marginTop: "6%",
+    marginTop: "3%",
     display: "flex",
     justifyContent: "space-around",
   };

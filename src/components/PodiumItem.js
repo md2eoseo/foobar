@@ -56,6 +56,12 @@ export default function PodiumItem(props) {
     };
   }
 
+  const beer_name_style = {
+    maxHeight: "1rem",
+    overflow: "visible",
+    fontSize: "1.5rem",
+  };
+
   return (
     <div className="PodiumItem" style={PodiumItem_style}>
       <div style={podium_beer_number_style}>{props.number}</div>
@@ -81,15 +87,7 @@ export default function PodiumItem(props) {
           style={podium_beer_logo_img_style}
         />
       </div>
-      <div
-        style={{
-          maxHeight: "1rem",
-          overflow: "visible",
-          fontSize: "1.5rem",
-        }}
-      >
-        {props.beer}
-      </div>
+      <h2 style={beer_name_style}>{props.beer}</h2>
     </div>
   );
 }
