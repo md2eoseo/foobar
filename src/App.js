@@ -193,7 +193,7 @@ function App() {
     setPodium(new_podium);
     // https://www.samanthaming.com/tidbits/33-how-to-compare-2-objects/
     if (JSON.stringify(old_queue) !== JSON.stringify(new_queue)) {
-      console.log("changed!!");
+      // console.log("changed!!");
       setQueue(new_queue);
     }
   }
