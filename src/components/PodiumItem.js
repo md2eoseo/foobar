@@ -1,7 +1,6 @@
 import React from "react";
 import podium_beer_img from "../images/podium_beer.png";
-
-const images = require.context("../images/", true);
+import beers from "../images/beers";
 
 export default function PodiumItem(props) {
   const PodiumItem_style = {
@@ -80,9 +79,7 @@ export default function PodiumItem(props) {
           style={podium_beer_img_style}
         />
         <img
-          src={images(
-            `./beers/${props.beer.split(" ").join("").toLowerCase()}.png`
-          )}
+          src={beers[props.beer.split(" ").join("").toLowerCase()]}
           alt="podium_beer_logo"
           style={podium_beer_logo_img_style}
         />

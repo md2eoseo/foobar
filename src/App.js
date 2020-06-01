@@ -6,10 +6,11 @@ import Podium from "./components/Podium";
 import Recommendation from "./components/Recommendation";
 import Queue from "./components/Queue";
 import Showcase from "./components/Showcase";
+import beers from "./images/beers";
 
 const DB_URL = "https://sojuapp.herokuapp.com/";
 // https://stackoverflow.com/questions/54059179/what-is-require-context
-const images = require.context("./images/", true);
+// const images = require.context("./images/", true);
 
 function App() {
   // const [check, setCheck] = useState(false);
@@ -213,9 +214,7 @@ function App() {
         <Showcase data={beertypes} />
         <Recommendation
           rec={rec}
-          rec_img={images(
-            `./beers/${rec.split(" ").join("").toLowerCase()}.png`
-          )}
+          rec_img={beers[rec.split(" ").join("").toLowerCase()]}
         />
       </div>
       <Queue queue={queue} />

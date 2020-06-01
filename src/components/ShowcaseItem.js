@@ -1,5 +1,5 @@
 import React from "react";
-const images = require.context("../images/", true);
+import beers from "../images/beers";
 
 // https://reactjs.org/docs/forwarding-refs.html
 const ShowcaseItem = React.forwardRef((props, ref) => {
@@ -22,9 +22,7 @@ const ShowcaseItem = React.forwardRef((props, ref) => {
       {/* https://react-cn.github.io/react/tips/if-else-in-JSX.html */}
       {props.name !== undefined ? (
         <img
-          src={images(
-            `./beers/${props.name.split(" ").join("").toLowerCase()}.png`
-          )}
+          src={beers[props.name.split(" ").join("").toLowerCase()]}
           alt="beer_img"
           style={img_style}
         />
