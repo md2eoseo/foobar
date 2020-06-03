@@ -3,46 +3,47 @@ import podium_beer_img from "../images/podium_beer.png";
 import beers from "../images/beers";
 
 export default function PodiumItem(props) {
-  let podium_beer_number_style = { height: "18%", marginBottom: "0.5rem" };
+  let podium_beer_number_style = {
+    height: "18%",
+    marginBottom: "1.5vw",
+    color: "#66442c",
+  };
   let podium_beer_img_style = { objectFit: "cover" };
   let podium_beer_logo_img_style = {
     borderRadius: "9999px",
     position: "absolute",
-    top: "1.5rem",
-    width: "40%",
+    top: "20%",
+    width: "55%",
   };
   if (props.number === "1") {
     podium_beer_number_style = {
       ...podium_beer_number_style,
-      fontSize: "2rem",
+      fontSize: "2.6vw",
       fontWeight: "700",
-      color: "#FFBC3F",
     };
     podium_beer_img_style = { ...podium_beer_img_style, width: "80%" };
     podium_beer_logo_img_style = { ...podium_beer_logo_img_style };
   } else if (props.number === "2") {
     podium_beer_number_style = {
       ...podium_beer_number_style,
-      fontSize: "1.8rem",
+      fontSize: "2.3vw",
       fontWeight: "650",
-      color: "#FFBC3F",
     };
     podium_beer_img_style = { ...podium_beer_img_style, width: "70%" };
     podium_beer_logo_img_style = {
       ...podium_beer_logo_img_style,
-      width: "35%",
+      width: "45%",
     };
   } else if (props.number === "3") {
     podium_beer_number_style = {
       ...podium_beer_number_style,
-      fontSize: "1.6rem",
+      fontSize: "2vw",
       fontWeight: "650",
-      color: "#FFBC3F",
     };
     podium_beer_img_style = { ...podium_beer_img_style, width: "60%" };
     podium_beer_logo_img_style = {
       ...podium_beer_logo_img_style,
-      width: "30%",
+      width: "35%",
     };
   }
 
