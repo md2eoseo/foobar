@@ -199,17 +199,11 @@ function App() {
     }
   }
 
-  const beers_style = {
-    marginTop: "3%",
-    display: "flex",
-    justifyContent: "space-around",
-  };
-
   return (
     <div className="App">
       {/* <button onClick={() => setCheck(!check)}>{check ? "on" : "off"}</button> */}
       <Welcome />
-      <div className="beers" style={beers_style}>
+      <div className="beers">
         <Podium {...podium} />
         <Showcase data={beertypes} />
         <Recommendation

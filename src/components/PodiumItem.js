@@ -3,15 +3,6 @@ import podium_beer_img from "../images/podium_beer.png";
 import beers from "../images/beers";
 
 export default function PodiumItem(props) {
-  const PodiumItem_style = {
-    width: "30%",
-    margin: "0 auto",
-    padding: "5px 10px",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "flex-end",
-    alignItems: "center",
-  };
   let podium_beer_number_style = { height: "18%", marginBottom: "0.5rem" };
   let podium_beer_img_style = { objectFit: "cover" };
   let podium_beer_logo_img_style = {
@@ -55,14 +46,8 @@ export default function PodiumItem(props) {
     };
   }
 
-  const beer_name_style = {
-    maxHeight: "1rem",
-    overflow: "visible",
-    fontSize: "1.5rem",
-  };
-
   return (
-    <div className="PodiumItem" style={PodiumItem_style}>
+    <div className="PodiumItem">
       <div style={podium_beer_number_style}>{props.number}</div>
       <div
         style={{
@@ -84,7 +69,7 @@ export default function PodiumItem(props) {
           style={podium_beer_logo_img_style}
         />
       </div>
-      <h2 style={beer_name_style}>{props.beer}</h2>
+      <h2 className="beerName">{props.beer}</h2>
     </div>
   );
 }

@@ -2,20 +2,10 @@ import React from "react";
 import PodiumItem from "./PodiumItem";
 
 export default function Podium({ ...podium }) {
-  const Podium_style = {
-    textAlign: "center",
-  };
-
-  const items_style = {
-    marginTop: "40px",
-    display: "flex",
-    justifyContent: "space-around",
-  };
-
   return (
-    <div className="Podium" style={Podium_style}>
+    <div className="Podium">
       <h1>Top 3 Beers</h1>
-      <div className="podium_items" style={items_style}>
+      <div className="items">
         <PodiumItem
           number="2"
           beer={podium.second}

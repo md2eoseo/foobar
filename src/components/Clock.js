@@ -23,17 +23,5 @@ export default function Clock() {
 
   useInterval(getTime, 1000);
 
-  return (
-    <div
-      className="Clock"
-      style={{
-        width: "85px",
-        marginRight: "15px",
-        fontSize: "2rem",
-        fontWeight: "600",
-      }}
-    >
-      {time}
-    </div>
-  );
+  return <div className="Clock">{time}</div>;
 }
