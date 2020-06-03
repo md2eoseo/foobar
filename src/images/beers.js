@@ -1,4 +1,5 @@
 const beers = {
+  default: require("./default.png"),
   elhefe: require("./beers/elhefe.png"),
   fairytaleale: require("./beers/fairytaleale.png"),
   githop: require("./beers/githop.png"),

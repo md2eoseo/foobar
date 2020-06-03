@@ -206,10 +206,7 @@ function App() {
       <div className="beers">
         <Podium {...podium} />
         <Showcase data={beertypes} />
-        <Recommendation
-          rec={rec}
-          rec_img={beers[rec.split(" ").join("").toLowerCase()]}
-        />
+        <Recommendation rec={rec} />
       </div>
       <Queue queue={queue} />
     </div>
