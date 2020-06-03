@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./App.css";
+import "./styles/App.scss";
 import useInterval from "./hooks/useInterval";
 import Welcome from "./components/Welcome";
 import Podium from "./components/Podium";
