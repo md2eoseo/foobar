@@ -28,6 +28,7 @@ function App() {
   const [queue, setQueue] = useState([]);
   const [prevQueue, setPrevQueue] = useState([]);
 
+  useEffect(get, []);
   useInterval(get, 5000);
   useEffect(getBeertypes, []);
   useEffect(compare, [queue]);
