@@ -7,10 +7,17 @@ export default function Recommendation(props) {
       <h1>Today's Offer</h1>
       <img
         className="img"
-        src={beer_bottles[props.rec.split(" ").join("").toLowerCase()]}
-        alt="rec_img"
+        // https://blog.bitsrc.io/understanding-react-default-props-5c50401ed37d
+        src={
+          beer_bottles[
+            (props.rec.name || "default").split(" ").join("").toLowerCase()
+          ]
+        }
+        alt="rec"
       />
-      <h2 className="name">{props.rec}</h2>
+      <div className="name">{props.rec.name}</div>
+      <div className="category">{props.rec.category}</div>
+      <div className="alc">Alc: {props.rec.alc}% / 39kr</div>
     </div>
   );
 }

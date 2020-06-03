@@ -1,6 +1,6 @@
 $primary-color: #ffbc3f;
 $bg-color: #e0ebe8;
-$text-color: #4ab19a;
+$showcase-color: #4ab19a;
 
 // App.js
 .App {
@@ -12,9 +12,9 @@ $text-color: #4ab19a;
 }
 
 .beers {
-  color: $text-color;
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
+  align-items: center;
 }
 
 .beers > * {
@@ -31,14 +31,14 @@ $text-color: #4ab19a;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 3px solid black;
   background-color: $primary-color;
   .logo {
     margin: 15px 30px;
-    height: 5.5vh;
+    height: 6vh;
   }
   .text {
     font-size: 3vw;
+    font-weight: 700;
   }
 }
 
@@ -69,25 +69,43 @@ $text-color: #4ab19a;
 }
 
 // Showcase.js
+.Showcase {
+}
 
 // ShowcaseItem.js
 .ShowcaseItem {
+  background-color: $showcase-color;
+  border-radius: 20px;
+  padding: 2vw;
   opacity: 0;
   transition: 1s linear;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 40% 60%;
   .img {
-    max-height: 250px;
-    margin-top: 10px;
+    width: 15vw;
+    margin: auto;
   }
-  .name {
-    margin-top: 12px;
-  }
-  .price {
-  }
-  .desc {
-    margin-top: 8px;
+  .detail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .name {
+      margin-top: 1vw;
+      font-size: 2.5vw;
+      font-weight: 600;
+    }
+    .category {
+      font-size: 2vw;
+      font-weight: 550;
+    }
+    .price {
+      font-size: 1.8vw;
+      font-weight: 500;
+    }
+    .desc {
+      width: 80%;
+      margin-top: 1.5vw;
+    }
   }
 }
 
@@ -102,35 +120,45 @@ $text-color: #4ab19a;
     max-height: 225px;
   }
   .name {
-    max-height: 1rem;
-    overflow: visible;
     font-size: 1.5vw;
+    font-weight: 600;
+  }
+  .category {
+    font-size: 1.3vw;
+    font-weight: 500;
+  }
+  .alc {
+    font-size: 1vw;
+    font-weight: 400;
   }
 }
 
 // Queue.js
 .Queue {
-  padding: 0 6vw;
+  padding: 0 3vw;
   width: 100%;
   position: relative;
   display: flex;
   align-items: center;
-  border-top: 2px solid black;
   .label {
-    width: 10%;
+    width: 15%;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0 1.5vw;
-    padding: 5px 15px;
-    position: absolute;
-    top: -20%;
-    left: 45%;
-    background-color: white;
-    border: 2px solid black;
-    border-radius: 10px;
-    font-size: 2.3vw;
+    img {
+      width: 60%;
+    }
+    div {
+      margin: -10%;
+      margin-right: 10%;
+      font-size: 2.5vw;
+      font-weight: 600;
+    }
+  }
+  .isMoreThan {
+    font-size: 2.5vw;
     font-weight: 600;
+    margin: 0 2vw;
   }
 }
 
@@ -143,10 +171,12 @@ $text-color: #4ab19a;
   justify-content: center;
   align-items: center;
   background-color: #fff;
-  border: 2px solid black;
-  border-radius: 10px;
-  font-size: 2vw;
+  border-radius: 50%;
+  font-size: 2.2vw;
   font-weight: 600;
+}
+.Order.nextOrder {
+  background-color: $primary-color;
 }
 
 // Clock.js

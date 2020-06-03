@@ -6,7 +6,6 @@ import Podium from "./components/Podium";
 import Recommendation from "./components/Recommendation";
 import Queue from "./components/Queue";
 import Showcase from "./components/Showcase";
-import beers from "./images/beers";
 
 const DB_URL = "https://sojuapp.herokuapp.com/";
 // https://stackoverflow.com/questions/54059179/what-is-require-context
@@ -15,7 +14,7 @@ const DB_URL = "https://sojuapp.herokuapp.com/";
 function App() {
   // const [check, setCheck] = useState(false);
   const [beertypes, setBeertypes] = useState([]);
-  const [rec, setRec] = useState("default");
+  const [rec, setRec] = useState({});
   const [orders, setOrders] = useState([]);
   const [sales, setSales] = useState({});
   const [podium, setPodium] = useState({
@@ -102,14 +101,21 @@ function App() {
 
   function getRecommendation(data) {
     let max_amount = 0;
-    let max_beer = "";
+    let max_beer = {};
     data.storage.forEach((beer) => {
       if (beer.amount > max_amount) {
         max_amount = beer.amount;
         max_beer = beer.name;
       }
     });
-    setRec(max_beer);
+    setRec(getBeerData(max_beer));
+  }
+
+  function getBeerData(name) {
+    let i = 0;
+    for (i = 0; i < beertypes.length; i++) {
+      if (beertypes[i].name === name) return beertypes[i];
+    }
   }
 
   function setSalesOrdersPodium(data) {

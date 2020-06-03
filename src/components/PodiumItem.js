@@ -69,7 +69,7 @@ export default function PodiumItem(props) {
           style={podium_beer_logo_img_style}
         />
       </div>
-      <h2 className="beerName">{props.beer}</h2>
+      <div className="beerName">{props.beer}</div>
     </div>
   );
 }

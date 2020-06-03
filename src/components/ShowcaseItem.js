@@ -16,13 +16,16 @@ const ShowcaseItem = React.forwardRef((props, ref) => {
       ) : (
         ""
       )}
-      <h1 className="name">{props.name}</h1>
-      <h2 className="price">{props.category} / 39,00kr</h2>
-      {props.description !== undefined ? (
-        <p className="desc">{props.description.overallImpression}</p>
-      ) : (
-        ""
-      )}
+      <div className="detail">
+        <div className="name">{props.name}</div>
+        <div className="category">{props.category}</div>
+        <div className="price">Alc: {props.alc}% / 39,00kr</div>
+        {props.description !== undefined ? (
+          <p className="desc">{props.description.overallImpression}</p>
+        ) : (
+          ""
+        )}
+      </div>
     </div>
   );
 });

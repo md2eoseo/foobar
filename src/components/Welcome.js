@@ -6,7 +6,7 @@ export default function Welcome() {
   return (
     <div className="Welcome">
       <img className="logo" src={logo} alt="logo" />
-      <div className="text">Welcome to Foo Bar!</div>
+      <div className="text">Welcome to FOOBAR!</div>
       <Clock />
     </div>
   );
